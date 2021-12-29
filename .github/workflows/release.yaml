@@ -37,7 +37,7 @@ jobs:
 #          git log --oneline --decorate=no ${TAG_PREVIOUS}..${TAG_LATEST} | while read LINE ; do echo "- ${LINE}" >> release-notes.md ; done
 
       - name: Create release-notes.md
-        uses: ./.github/init
+        uses: ./.github/actions/init
 
       - name: Create Release
         id: create_release
