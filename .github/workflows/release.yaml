@@ -31,6 +31,7 @@ jobs:
           echo "GIT_TAG_LATEST_BEFORE_ONE=${GIT_TAG_LATEST_BEFORE_ONE}"
           GIT_MSGS=$(git log --oneline --decorate=no ${GIT_TAG_LATEST_BEFORE_ONE}..${GIT_TAG_LATEST})
           echo "GIT_MSGS=${GIT_MSGS}"
+          echo "::set-output name=git_msgs::${GIT_MSGS//$'\n'/\\n}"
 
       - name: Create Release
         id: create_release
@@ -40,7 +41,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            ${GIT_MSGS}
+          body: ${{ steps.variabless.outputs.git_msgs }}
           draft: false
           prerelease: false
