@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Git Messages
-        id: variables
+        id: variabless
         run: |
           GIT_TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
           echo "GIT_TAG_LATEST=${GIT_TAG_LATEST}" >> $GITHUB_ENV
@@ -39,6 +39,6 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            ${{ steps.variables.outputs.GIT_MSGS }}
+            ${{ steps.variabless.outputs.GIT_MSGS }}
           draft: false
           prerelease: false
