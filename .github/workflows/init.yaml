@@ -1,0 +1,12 @@
+name: "library setup"
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node
+      run: |
+        TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
+        echo "TAG_LATEST=${TAG_LATEST}"
+        TAG_PREVIOUS=$(git tag -l --sort=-v:refname | head -n 2 | tail -n 1)
+        echo "TAG_PREVIOUS=${TAG_PREVIOUS}"
+        echo "## What's Changed" > release-notes.md
+        git log --oneline --decorate=no ${TAG_PREVIOUS}..${TAG_LATEST} | while read LINE ; do echo "- ${LINE}" >> release-notes.md ; done
