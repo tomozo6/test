@@ -1,8 +1,9 @@
-name: "library setup"
+name: "Create release-notes.md"
+author: tomozo6
 runs:
   using: "composite"
   steps:
-    - name: Set up Node
+    - shell: bash
       run: |
         TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
         echo "TAG_LATEST=${TAG_LATEST}"
