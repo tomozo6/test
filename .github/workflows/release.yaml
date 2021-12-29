@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Create release-notes.md
-        uses: tomozo6/create-release-notes@main
+        uses: tomozo6/create-release-notes@v0.0.1
 
       - name: Create Release
         id: create_release
