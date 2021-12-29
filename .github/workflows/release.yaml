@@ -23,7 +23,7 @@ jobs:
       - name: Git Messages
         run: |
           GIT_MSGS=$(git log --oneline --decorate=no)
-          echo "${MSGS}"
+          echo "${GIT_MSGS}"
           GIT_TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
           echo "${GIT_TAG_LATEST}"
           GIT_TAG_LATEST_BEFORE_ONE=$(git tag -l --sort=-v:refname | head -n 2 | tail -n 1)
