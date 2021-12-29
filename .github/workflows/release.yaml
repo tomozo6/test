@@ -23,13 +23,14 @@ jobs:
           fetch-depth: 0
 
       - name: Git Messages
+        id: variables
         run: |
           GIT_TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
           echo "GIT_TAG_LATEST=${GIT_TAG_LATEST}" >> $GITHUB_ENV
           GIT_TAG_LATEST_BEFORE_ONE=$(git tag -l --sort=-v:refname | head -n 2 | tail -n 1)
           echo "GIT_TAG_LATEST_BEFORE_ONE=${GIT_TAG_LATEST_BEFORE_ONE}" >> $GITHUB_ENV
           GIT_MSGS=$(git log --oneline --decorate=no ${GIT_TAG_LATEST_BEFORE_ONE}..${GIT_TAG_LATEST})
-          echo "GIT_MSGS=${GIT_MSGS}" >> $GITHUB_ENV
+          echo "::set-output name=GIT_MSGS::${GIT_MSGS}"
 
       - name: Create Release
         id: create_release
@@ -38,6 +39,6 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            ${GIT_MSGS}
+            ${{ steps.variables.outputs.GIT_MSGS }}
           draft: false
           prerelease: false
