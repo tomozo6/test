@@ -22,22 +22,8 @@ jobs:
         with:
           fetch-depth: 0
 
-#      - name: Git Messages
-#        id: variabless
-#        run: |
-#          TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
-#          echo "TAG_LATEST=${TAG_LATEST}"
-#          TAG_PREVIOUS=$(git tag -l --sort=-v:refname | head -n 2 | tail -n 1)
-#          echo "TAG_PREVIOUS=${TAG_PREVIOUS}"
-#          GIT_MSGS=$(git log --oneline --decorate=no ${GIT_TAG_LATEST_BEFORE_ONE}..${GIT_TAG_LATEST})
-#          echo "GIT_MSGS=${GIT_MSGS}"
-#          echo "## What's Changed" > release-notes.md
-#          echo ${GIT_MSGS} >> release-notes.md
-#          echo "## What's Changed" > release-notes.md
-#          git log --oneline --decorate=no ${TAG_PREVIOUS}..${TAG_LATEST} | while read LINE ; do echo "- ${LINE}" >> release-notes.md ; done
-
       - name: Create release-notes.md
-        uses: ./.github/actions/init
+        uses: tomozo6/create-release-notes@main
 
       - name: Create Release
         id: create_release
