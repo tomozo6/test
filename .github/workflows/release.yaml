@@ -26,15 +26,18 @@ jobs:
         id: variabless
         run: |
           GIT_TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
-          echo "GIT_TAG_LATEST=${GIT_TAG_LATEST}" >> $GITHUB_ENV
+          echo "GIT_TAG_LATEST=${GIT_TAG_LATEST}"
           GIT_TAG_LATEST_BEFORE_ONE=$(git tag -l --sort=-v:refname | head -n 2 | tail -n 1)
-          echo "GIT_TAG_LATEST_BEFORE_ONE=${GIT_TAG_LATEST_BEFORE_ONE}" >> $GITHUB_ENV
+          echo "GIT_TAG_LATEST_BEFORE_ONE=${GIT_TAG_LATEST_BEFORE_ONE}"
           GIT_MSGS=$(git log --oneline --decorate=no ${GIT_TAG_LATEST_BEFORE_ONE}..${GIT_TAG_LATEST})
+          echo "GIT_MSGS=${GIT_MSGS}"
           echo "::set-output name=GIT_MSGS::${GIT_MSGS}"
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
