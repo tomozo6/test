@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Setup TagVariables
         id: variables
-        run: echo "::set-output name=tagversion::${GITHUB_REF##*/v}"
+        run: echo "::set-output name=tagversion::${GITHUB_REF}"
 
       - name: Use TagVariables
         run: echo ${{ steps.variables.outputs.tagversion }}
@@ -23,4 +23,6 @@ jobs:
       - name: Git Messages
         run: |
           GIT_MSGS=$(git log --oneline --decorate=no)
-          echo ${GIT_MSGS}
+          GIT_TAG_LATEST=$(git tag -l --sort=-v:refname | head -n 1)
+          GIT_TAG_LATEST_BEFORE_ONE=$(git tag -l --sort=-v:refname | head -n 2 | tail -n 1)
+
