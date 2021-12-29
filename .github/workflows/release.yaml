@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  ecr-push:
+    runs-on: ubuntu-latest
+    name: Release
+    steps:
+      - name: Setup TagVariables
+        id: variables
+        run: echo "::set-output name=tagversion::${GITHUB_REF##*/v}"
+
+      - name: Use TagVariables
+        run: echo ${{ steps.variables.outputs.tagversion }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Git Messages
+        run: |
+          GIT_MSGS=$(git log --oneline --decorate=no)
+          echo ${GIT_MSGS}
