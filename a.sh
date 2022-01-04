@@ -6,6 +6,3 @@ ddddd
 eeeee
 ooooo
 kkkkk
-sssss
-aaaaaa
-kkkk
