@@ -9,6 +9,3 @@ kkkkk
 sssss
 aaaaaa
 kkkk
-aaaaa
-kkkkkk
-aaaaaaa
