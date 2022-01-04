@@ -20,21 +20,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 50
 
-      - name: Create release-notes.md
+      - name: Create Release Notes
         uses: tomozo6/create-release-notes@main
-        with:
-          release_notes_filename: "test.md"
+        id: create-release-notes
 
       - name: Create Release
-        id: create_release
         uses: actions/create-release@v1
+        id: create-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name:  ${{ github.ref }}
-          body_path: "test.md"
+          body_path: ${{ steps.create-release-notes.outputs.release-notes }}
           draft: false
           prerelease: false
