@@ -24,6 +24,8 @@ jobs:
 
       - name: Create release-notes.md
         uses: tomozo6/create-release-notes@main
+        with:
+          release_notes_filename: "test.md"
 
       - name: Create Release
         id: create_release
@@ -33,6 +35,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name:  ${{ github.ref }}
-          body_path: release-notes.md
+          body_path: "test.md"
           draft: false
           prerelease: false
