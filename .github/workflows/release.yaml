@@ -10,13 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Release
     steps:
-      - name: Setup Variables
-        id: variables
-        run: echo "::set-output name=tagversion::${GITHUB_REF}"
-
-      - name: Use TagVariables
-        run: echo ${{ steps.variables.outputs.tagversion }}
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -26,15 +19,18 @@ jobs:
         uses: tomozo6/create-release-notes@main
         id: create-release-notes
 
+      - shell: bash
+        run: |
+          echo ${{ steps.create-release-notes.outputs.RELEASE_NOTES }}
+
       - name: Create Release
         uses: actions/create-release@v1
-        id: create-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name:  ${{ github.ref }}
           body: |
-            ${{ steps.create-release-notes.outputs.release-notes }}
+            ${{ steps.create-release-notes.outputs.RELEASE_NOTES }}
           draft: false
           prerelease: false
