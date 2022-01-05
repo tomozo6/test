@@ -5,5 +5,4 @@ ccccc
 ddddd
 dd
 eeeee
-ooooo
 kkkkk
